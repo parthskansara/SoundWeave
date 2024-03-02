@@ -1,0 +1,12 @@
+
+- drag and drop files
+- timeline
+
+- allow reordering
+- soundcard size according to length of track
+- audio player
+
+936
+693
+
+639
