@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/audio-pill-master/static/css/main.85769e3c.css",
-    "main.js": "/audio-pill-master/static/js/main.f0dfbc0a.js",
-    "static/js/453.e1a2a0c9.chunk.js": "/audio-pill-master/static/js/453.e1a2a0c9.chunk.js",
+    "main.css": "/audio-pill-master/static/css/main.8672a035.css",
+    "main.js": "/audio-pill-master/static/js/main.34345d82.js",
+    "static/js/453.ead3be5e.chunk.js": "/audio-pill-master/static/js/453.ead3be5e.chunk.js",
     "index.html": "/audio-pill-master/index.html",
-    "main.85769e3c.css.map": "/audio-pill-master/static/css/main.85769e3c.css.map",
-    "main.f0dfbc0a.js.map": "/audio-pill-master/static/js/main.f0dfbc0a.js.map",
-    "453.e1a2a0c9.chunk.js.map": "/audio-pill-master/static/js/453.e1a2a0c9.chunk.js.map"
+    "main.8672a035.css.map": "/audio-pill-master/static/css/main.8672a035.css.map",
+    "main.34345d82.js.map": "/audio-pill-master/static/js/main.34345d82.js.map",
+    "453.ead3be5e.chunk.js.map": "/audio-pill-master/static/js/453.ead3be5e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.85769e3c.css",
-    "static/js/main.f0dfbc0a.js"
+    "static/css/main.8672a035.css",
+    "static/js/main.34345d82.js"
   ]
 }

@@ -21,7 +21,7 @@ function App() {
 
   return (
     <>
-      <div className='bg-purple-200 h-[100vh]'>
+      <div className='bg-primary h-[100vh]'>
         <SongProvider>
           <div className='flex flex-col'>
             <SongQueue />  

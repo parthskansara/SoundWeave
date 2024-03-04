@@ -4,10 +4,13 @@ import 'react-h5-audio-player/lib/styles.css';
 import { SongContext } from '../context/SongContext';
 import Crunker from 'crunker';
 import { useRef } from 'react';
+import '../App.css';
 
 const Player = () => {
     const { songList, setDownloadURL, setPlaybackProgress } = useContext(SongContext);
     const [concatURL, setConcatURL] = useState('');
+
+    
     
     const audioPlayerRef = useRef(null);
 
@@ -40,7 +43,7 @@ const Player = () => {
     }, [songList]);
 
     return (
-    <div className='flex my-[40px] mx-[40px] border-8 rounded-lg border-purple-900'>
+    <div className='player-div flex my-[40px] mx-[40px] border-4 border-outline'>
 
     <AudioPlayer
         ref={audioPlayerRef}        
@@ -48,7 +51,6 @@ const Player = () => {
         onListen={handleListen}
         src={concatURL}
         onPlay={() => console.log("onPlay")}
-
     />
     </div>
     );

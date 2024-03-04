@@ -95,6 +95,11 @@ const handleDeleteDragOver = (e) => {
   e.target.style.backgroundColor = '#C70000';
 }
 
+const handleDeleteDragLeave = (e) => {
+  e.preventDefault();
+  e.target.style.backgroundColor = '#C7000099';
+}
+
 const deleteDroppedTrack = (e) => {
   e.preventDefault();
   const sourceId = parseInt(e.dataTransfer.getData("text/plain"), 10);
@@ -118,9 +123,9 @@ const deleteDroppedTrack = (e) => {
         <Toast message={toast.message} />
       }
      
-      <div className='text-center flex flex-col border-8 rounded-lg border-purple-900 mx-[40px] mt-[40px] relative'>
-        <div className='flex flex-row items-center justify-center text-white text-[20px] bg-purple-900 pb-4 pt-2'>
-          <div className='absolute flex justify-center text-[22px]'>
+      <div className='text-center flex flex-col border-4 border-outline mx-[40px] mt-[40px] relative'>
+        <div className='flex flex-row items-center justify-center text-font-light font-bold text-[25px] bg-header pb-4 pt-2'>
+          <div className='absolute flex justify-center'>
             <span>Song Queue</span>
           </div>  
           <div className='ml-auto mr-8'>
@@ -128,10 +133,7 @@ const deleteDroppedTrack = (e) => {
           </div>
           
         </div>
-        {/* <div className="seek-bar-container" style={{ width: '100%', position: 'relative', height: '5px', backgroundColor: '#ddd' }}>
-            <div className="seek-bar-progress" style={{ width: `${progressPercent}%`, height: '100%', backgroundColor: 'blue' }}></div>
-        </div> */}
-        <div draggable className='h-[50vh] bg-slate-400 flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
+        <div draggable className='h-[50vh] bg-secondary flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
           {songList.map((song, index) => (       
             <>
             {index > 0 ? null : (
@@ -140,7 +142,7 @@ const deleteDroppedTrack = (e) => {
                   onDragOver={handleReorderDragOver} 
                   onDragLeave={handleDragLeave}
                   onDrop={handleReorder}
-                  className="start-bar min-w-[5px] h-[100%] flex bg-white justify-center items-center"
+                  className="start-bar min-w-[5px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
               />
             )} 
                 
@@ -150,14 +152,18 @@ const deleteDroppedTrack = (e) => {
                     onDragOver={handleReorderDragOver} 
                     onDragLeave={handleDragLeave}
                     onDrop={handleReorder}
-                    className="end-bar min-w-[5px] h-[100%] flex bg-white justify-center items-center"
+                    className="end-bar min-w-[5px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
                 />
             </>
           ))}
         </div>
-        <div draggable onDrop={deleteDroppedTrack} onDragOver={handleDeleteDragOver}>
-          <DeleteTrack />
-        </div>
+        {
+          songList.length > 0 && 
+          <div draggable onDrop={deleteDroppedTrack} onDragOver={handleDeleteDragOver} onDragLeave={handleDeleteDragLeave}>
+            <DeleteTrack />
+          </div>
+        }
+        
       </div>
       </div>
     </>

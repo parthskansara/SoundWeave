@@ -1,8 +1,8 @@
 const DeleteTrack = () => {
 
     return (
-        <div className="bg-delete-inactive text-white hover:bg-delete-active">
-            Delete Track
+        <div className="bg-delete-inactive text-primary text-sm">
+            Drag here to delete track
         </div>
     );
 };
