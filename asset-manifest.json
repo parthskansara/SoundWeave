@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/audio-pill-master/static/css/main.c0020d8c.css",
-    "main.js": "/audio-pill-master/static/js/main.319b1645.js",
+    "main.css": "/audio-pill-master/static/css/main.d71c4d5c.css",
+    "main.js": "/audio-pill-master/static/js/main.84bbeefa.js",
     "static/js/453.ead3be5e.chunk.js": "/audio-pill-master/static/js/453.ead3be5e.chunk.js",
     "index.html": "/audio-pill-master/index.html",
-    "main.c0020d8c.css.map": "/audio-pill-master/static/css/main.c0020d8c.css.map",
-    "main.319b1645.js.map": "/audio-pill-master/static/js/main.319b1645.js.map",
+    "main.d71c4d5c.css.map": "/audio-pill-master/static/css/main.d71c4d5c.css.map",
+    "main.84bbeefa.js.map": "/audio-pill-master/static/js/main.84bbeefa.js.map",
     "453.ead3be5e.chunk.js.map": "/audio-pill-master/static/js/453.ead3be5e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c0020d8c.css",
-    "static/js/main.319b1645.js"
+    "static/css/main.d71c4d5c.css",
+    "static/js/main.84bbeefa.js"
   ]
 }
