@@ -25,7 +25,7 @@ const UploadButton = () => {
                         className='bg-primary rounded-sm text-outline text-sm px-2 py-2' 
                         onClick={() => document.getElementById('fileInput').click()}
                     >
-                        Upload File <UploadFileIcon />
+                        Upload Track <UploadFileIcon />
                     </button>
             </div>
         </>
