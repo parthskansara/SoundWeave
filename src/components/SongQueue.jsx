@@ -133,7 +133,7 @@ const deleteDroppedTrack = (e) => {
           </div>
           
         </div>
-        <div draggable className='h-[50vh] bg-secondary flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
+        <div draggable className='h-[40vh] bg-secondary flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
           {songList.map((song, index) => (       
             <>
             {index > 0 ? null : (

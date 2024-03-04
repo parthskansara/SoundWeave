@@ -43,7 +43,7 @@ const Player = () => {
     }, [songList]);
 
     return (
-    <div className='player-div flex my-[40px] mx-[40px] border-4 border-outline'>
+    <div className='player-div flex mt-[40px] mx-[40px] border-4 border-outline'>
 
     <AudioPlayer
         ref={audioPlayerRef}        
