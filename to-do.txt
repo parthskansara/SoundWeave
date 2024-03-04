@@ -1,3 +1,7 @@
+- upload button
+- modal (if possible)
+- write-up
+- loom video
 
 - drag and drop files
 - timeline
@@ -5,3 +9,4 @@
 - allow reordering
 - soundcard size according to length of track
 - audio player
+

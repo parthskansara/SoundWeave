@@ -9,7 +9,7 @@ const DownloadButton = () => {
 
     const downloadSong = () => {
 
-        const crunker = new Crunker;
+        const crunker = new Crunker();
 
         crunker.download(downloadURL);
 

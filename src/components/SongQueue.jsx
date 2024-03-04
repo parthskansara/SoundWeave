@@ -1,52 +1,29 @@
-import React, { useState, useCallback } from 'react';
-import Player from './Player';
+import React, { useCallback } from 'react';
 import SongCard from './SongCard';
 import Toast from './Toast';
 import { useContext } from 'react';
 import { SongContext } from '../context/SongContext';
 import DownloadButton from './DownloadButton';
 import DeleteTrack from './DeleteTrack';
+import { ToastContext } from '../context/ToastContext';
+import { useFileProcessor } from '../hooks/useFileProcessor';
+import UploadButton from './UploadButton';
 
 function SongQueue() {
   const { songList, setSongList } = useContext(SongContext);
-  const { playbackProgress } = useContext(SongContext);
-  const { currentTime, duration } = playbackProgress;
-  const [toast, setToast] = useState({ show: false, message: '' });
-
-  const progressPercent = (currentTime / duration) * 100;
-
-  const showToast = useCallback((message) => {
-    setToast({ show: true, message });
-    setTimeout(() => setToast({ show: false, message: '' }), 3000); // Hide after 3 seconds
-  }, []);
+  const { toast } = useContext(ToastContext);
+  const processFiles = useFileProcessor();
 
   const handleDrop = useCallback((event) => {
     event.preventDefault();
     const sourceId = parseInt(event.dataTransfer.getData("text/plain"), 10);
 
     const files = event.dataTransfer.files;
-    let isValidFile = false;
+    
 
     if (files.length > 0)
     { 
-      const newSongs = Array.from(files).filter(file => {
-      if (file.type == "audio/mpeg"){
-        isValidFile = true;
-        return true;
-      }
-      else {
-        showToast("Invalid file type, upload an audio file");
-        return false;
-      }
-    }).map((file) => {
-      return {
-        url: URL.createObjectURL(file),
-        name: file.name.split(".")[0],
-      };
-    });
-    if (isValidFile) {
-      setSongList(prevSongs => [...prevSongs, ...newSongs]);
-    }
+      processFiles(files);
     }
     else if (!isNaN(sourceId))
     {
@@ -65,7 +42,7 @@ function SongQueue() {
       });
 
     }
-  }, [showToast]);
+  }, [setSongList, processFiles]);
 
 
   const handleDragStart = (event, id) => {
@@ -104,7 +81,6 @@ const deleteDroppedTrack = (e) => {
   e.preventDefault();
   const sourceId = parseInt(e.dataTransfer.getData("text/plain"), 10);
 
-  // Remove the track from the songList based on its index
   setSongList((prevSongs) => {
       const updatedSongs = prevSongs.filter((_, index) => index !== sourceId);
       return updatedSongs;
@@ -125,15 +101,28 @@ const deleteDroppedTrack = (e) => {
      
       <div className='text-center flex flex-col border-4 border-outline mx-[40px] mt-[10px] relative'>
         <div className='flex flex-row items-center justify-center text-font-light font-bold text-[25px] bg-header pb-4 pt-2'>
+          <div></div>
           <div className='absolute flex justify-center'>
             <span>Song Queue</span>
           </div>  
-          <div className='ml-auto mr-8'>
-            <DownloadButton />  
+          <div className='flex ml-auto '>
+            <UploadButton />  
+            <div className='ml-8 mr-8'>
+              <DownloadButton />  
+            </div>
           </div>
           
         </div>
         <div draggable className='h-[40vh] bg-secondary flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
+          {
+            songList.length === 0 ? (
+              <div className='text-header text-lg italic flex justify-center items-center w-full'>
+                Drag audio tracks here to get started
+              </div>
+            ) : null
+
+          }
+          
           {songList.map((song, index) => (       
             <>
             {index > 0 ? null : (
@@ -142,7 +131,7 @@ const deleteDroppedTrack = (e) => {
                   onDragOver={handleReorderDragOver} 
                   onDragLeave={handleDragLeave}
                   onDrop={handleReorder}
-                  className="start-bar min-w-[5px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
+                  className="start-bar min-w-[8px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
               />
             )} 
                 
@@ -152,7 +141,7 @@ const deleteDroppedTrack = (e) => {
                     onDragOver={handleReorderDragOver} 
                     onDragLeave={handleDragLeave}
                     onDrop={handleReorder}
-                    className="end-bar min-w-[5px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
+                    className="end-bar min-w-[8px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
                 />
             </>
           ))}
