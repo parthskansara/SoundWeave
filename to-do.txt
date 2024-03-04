@@ -1,7 +1,7 @@
-- upload button
 - modal (if possible)
-- write-up
-- loom video
+- write-up detailing your approach, design decisions and challenges you encountered
+- Record a Loom video demonstrating your solution in action and briefly explaining how it works.
+- update README
 
 - drag and drop files
 - timeline
