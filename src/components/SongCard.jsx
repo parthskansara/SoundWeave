@@ -7,11 +7,11 @@ const SongCard = ({ title, onDragStart, id, isFirstSong, isLastSong }) => {
         <> 
             <div className="flex flex-row h-[100%] items-center">
                 <div 
-                    className="cursor-move h-[100px] flex w-[300px] bg-white text-sm text-black justify-center items-center font-serif border-2 border-black rounded-lg"
+                    className="cursor-move h-[50px] flex w-[20vw] bg-white text-sm text-black justify-center items-center font-serif border-2 border-black rounded-lg"
                     draggable
                     onDragStart={(e) => onDragStart(e, id)}
                 >
-                    {title}
+                    {title}     
                 </div>
             </div>
             

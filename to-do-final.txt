@@ -1,0 +1,3 @@
+- write-up detailing your approach, design decisions and challenges you encountered
+
+- Record a Loom video demonstrating your solution in action and briefly explaining how it works.

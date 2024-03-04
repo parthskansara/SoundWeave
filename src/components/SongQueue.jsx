@@ -3,11 +3,17 @@ import Player from './Player';
 import SongCard from './SongCard';
 import Toast from './Toast';
 import { useContext } from 'react';
-import SongContext from '../context/SongContext';
+import { SongContext } from '../context/SongContext';
+import DownloadButton from './DownloadButton';
+import DeleteTrack from './DeleteTrack';
 
 function SongQueue() {
   const { songList, setSongList } = useContext(SongContext);
+  const { playbackProgress } = useContext(SongContext);
+  const { currentTime, duration } = playbackProgress;
   const [toast, setToast] = useState({ show: false, message: '' });
+
+  const progressPercent = (currentTime / duration) * 100;
 
   const showToast = useCallback((message) => {
     setToast({ show: true, message });
@@ -38,11 +44,9 @@ function SongQueue() {
         name: file.name.split(".")[0],
       };
     });
-
-      
-      
-      setSongList((prevSongs) => [...prevSongs, ...newSongs]);
-      console.log([...songList])
+    if (isValidFile) {
+      setSongList(prevSongs => [...prevSongs, ...newSongs]);
+    }
     }
     else if (!isNaN(sourceId))
     {
@@ -86,6 +90,26 @@ const handleReorder = (e) => {
     e.target.style.backgroundColor = 'white'; // Optionally, revert the div color on drop as well.
 };
 
+const handleDeleteDragOver = (e) => {
+  e.preventDefault();
+  e.target.style.backgroundColor = '#C70000';
+}
+
+const deleteDroppedTrack = (e) => {
+  e.preventDefault();
+  const sourceId = parseInt(e.dataTransfer.getData("text/plain"), 10);
+
+  // Remove the track from the songList based on its index
+  setSongList((prevSongs) => {
+      const updatedSongs = prevSongs.filter((_, index) => index !== sourceId);
+      return updatedSongs;
+  });
+
+  e.target.style.backgroundColor = '#C7000099';
+};
+
+
+
 
   return (
     <>
@@ -94,9 +118,20 @@ const handleReorder = (e) => {
         <Toast message={toast.message} />
       }
      
-      <div className='text-center flex flex-col border-8 rounded-lg border-gray-900 mx-[40px] mt-[40px] relative'>
-      <div className='text-white text-[20px] bg-black py-2 '>Song Queue</div>
-        <div draggable className='h-[50vh] bg-gray-500 flex flex-row' onDrop={handleDrop} onDragOver={handleDragOver}>
+      <div className='text-center flex flex-col border-8 rounded-lg border-purple-900 mx-[40px] mt-[40px] relative'>
+        <div className='flex flex-row items-center justify-center text-white text-[20px] bg-purple-900 pb-4 pt-2'>
+          <div className='absolute flex justify-center text-[22px]'>
+            <span>Song Queue</span>
+          </div>  
+          <div className='ml-auto mr-8'>
+            <DownloadButton />  
+          </div>
+          
+        </div>
+        {/* <div className="seek-bar-container" style={{ width: '100%', position: 'relative', height: '5px', backgroundColor: '#ddd' }}>
+            <div className="seek-bar-progress" style={{ width: `${progressPercent}%`, height: '100%', backgroundColor: 'blue' }}></div>
+        </div> */}
+        <div draggable className='h-[50vh] bg-slate-400 flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
           {songList.map((song, index) => (       
             <>
             {index > 0 ? null : (
@@ -105,7 +140,7 @@ const handleReorder = (e) => {
                   onDragOver={handleReorderDragOver} 
                   onDragLeave={handleDragLeave}
                   onDrop={handleReorder}
-                  className="w-[5px] h-[100%] flex bg-white justify-center items-center"
+                  className="start-bar min-w-[5px] h-[100%] flex bg-white justify-center items-center"
               />
             )} 
                 
@@ -115,10 +150,13 @@ const handleReorder = (e) => {
                     onDragOver={handleReorderDragOver} 
                     onDragLeave={handleDragLeave}
                     onDrop={handleReorder}
-                    className="w-[5px] h-[100%] flex bg-white justify-center items-center"
+                    className="end-bar min-w-[5px] h-[100%] flex bg-white justify-center items-center"
                 />
             </>
           ))}
+        </div>
+        <div draggable onDrop={deleteDroppedTrack} onDragOver={handleDeleteDragOver}>
+          <DeleteTrack />
         </div>
       </div>
       </div>

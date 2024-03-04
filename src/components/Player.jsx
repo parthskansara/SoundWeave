@@ -1,25 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import SongContext from '../context/SongContext';
+import { SongContext } from '../context/SongContext';
 import Crunker from 'crunker';
 import { useRef } from 'react';
 
 const Player = () => {
-    const { songList } = useContext(SongContext);
-    const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const { songList, setDownloadURL, setPlaybackProgress } = useContext(SongContext);
     const [concatURL, setConcatURL] = useState('');
-
-    useEffect(() => {
-        setCurrentSongIndex(0);
-    }, [songList]);
-
-    const handleSongEnded = () => {
-        setCurrentSongIndex(prevSongIndex => {
-            const nextSongIndex = prevSongIndex + 1;
-            return nextSongIndex < songList.length ? nextSongIndex : 0;
-        });
-    };
     
     const audioPlayerRef = useRef(null);
 
@@ -29,8 +17,13 @@ const Player = () => {
         }
     }, [concatURL]); 
 
+    const handleListen = () => {
+        const currentTime = audioPlayerRef.current.audio.current.currentTime;
+        const duration = audioPlayerRef.current.audio.current.duration;
+        setPlaybackProgress({ currentTime, duration });
+    };
+
     useEffect(() => {
-        setCurrentSongIndex(0);
     
         if (songList.length > 0) {
             const crunker = new Crunker();
@@ -38,20 +31,24 @@ const Player = () => {
             crunker.fetchAudio(...songList.map(song => song.url)) // Adjust according to your `songList` structure
             .then(buffers => crunker.concatAudio(buffers))
             .then(concatenated => crunker.export(concatenated, 'audio/mp3'))
-            .then(output => setConcatURL(output.url))
+            .then(output => {
+                setConcatURL(output.url);
+                setDownloadURL(output.blob);            
+            })
             .catch(error => console.error(error));
         }
     }, [songList]);
 
     return (
-    <div className='flex my-[40px] mx-[40px]'>
+    <div className='flex my-[40px] mx-[40px] border-8 rounded-lg border-purple-900'>
 
     <AudioPlayer
         ref={audioPlayerRef}        
         autoPlay={false}
+        onListen={handleListen}
         src={concatURL}
-        onEnded={handleSongEnded}
         onPlay={() => console.log("onPlay")}
+
     />
     </div>
     );
