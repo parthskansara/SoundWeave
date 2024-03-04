@@ -1,4 +1,4 @@
-import './App.css';
+import './index.css';
 import 'react-h5-audio-player/lib/styles.css';
 import Player from './components/Player';
 import SongQueue from './components/SongQueue';

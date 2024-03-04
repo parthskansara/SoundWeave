@@ -50,7 +50,6 @@
             autoPlay={false}
             onListen={handleListen}
             src={concatURL}
-            onPlay={() => console.log("onPlay")}
         />
         </div>
         );

@@ -29,7 +29,7 @@ function SongQueue() {
     {
 
       let targetId = parseInt(event.target.getAttribute('data-id'), 10);
-      console.log(targetId)
+      
 
       if (sourceId < targetId){
         targetId--;
@@ -60,11 +60,11 @@ function SongQueue() {
   };
 
 const handleDragLeave = (e) => {
-    e.target.style.backgroundColor = 'white'; // Revert the div color when the drag leaves.
+    e.target.style.backgroundColor = '#64748b'; // Revert the div color when the drag leaves.
 };
 
 const handleReorder = (e) => {
-    e.target.style.backgroundColor = 'white'; // Optionally, revert the div color on drop as well.
+    e.target.style.backgroundColor = '#64748b'; // Optionally, revert the div color on drop as well.
 };
 
 const handleDeleteDragOver = (e) => {
@@ -101,49 +101,51 @@ const deleteDroppedTrack = (e) => {
      
       <div className='text-center flex flex-col border-4 border-outline mx-[40px] mt-[10px] relative'>
         <div className='flex flex-row items-center justify-center text-font-light font-bold text-[25px] bg-header pb-4 pt-2'>
-          <div></div>
-          <div className='absolute flex justify-center'>
-            <span>Song Queue</span>
-          </div>  
-          <div className='flex ml-auto '>
-            <UploadButton />  
-            <div className='ml-8 mr-8'>
-              <DownloadButton />  
-            </div>
-          </div>
+            
+              <div></div>
+              <div className='absolute flex justify-center'>
+                <span>Song Queue</span>
+              </div>  
+              <div className='flex ml-auto '>
+                <UploadButton />  
+                <div className='ml-8 mr-8'>
+                  <DownloadButton />  
+                </div>
+              </div>
+            
           
         </div>
         <div draggable className='h-[40vh] bg-secondary flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
           {
             songList.length === 0 ? (
               <div className='text-header text-lg italic flex justify-center items-center w-full'>
-                Drag audio tracks here to get started
+                Drag .mp3 files here to get started
               </div>
             ) : null
 
           }
           
           {songList.map((song, index) => (       
-            <>
+            <React.Fragment key={index}>
             {index > 0 ? null : (
               <div 
-                  data-id={index} 
-                  onDragOver={handleReorderDragOver} 
-                  onDragLeave={handleDragLeave}
-                  onDrop={handleReorder}
-                  className="start-bar min-w-[8px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
+                data-id={index} 
+                onDragOver={handleReorderDragOver} 
+                onDragLeave={handleDragLeave}
+                onDrop={handleReorder}
+                className="start-bar min-w-[8px] h-[20%] mt-auto mb-auto mx-[3px] flex bg-slate-500 border-[1px] border-outline justify-center items-center"
               />
             )} 
                 
               <SongCard title={song.name} onDragStart={handleDragStart} id={index}/>
               <div 
-                    data-id={index+1} 
-                    onDragOver={handleReorderDragOver} 
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleReorder}
-                    className="end-bar min-w-[8px] h-[100%] flex bg-white border-2 border-black justify-center items-center"
+                data-id={index+1} 
+                onDragOver={handleReorderDragOver} 
+                onDragLeave={handleDragLeave}
+                onDrop={handleReorder}
+                className="end-bar min-w-[8px] h-[20%] mt-auto mb-auto mx-[3px] flex bg-slate-500 border-[1px] border-outline justify-center items-center"
                 />
-            </>
+            </React.Fragment>
           ))}
         </div>
         {
