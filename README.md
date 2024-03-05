@@ -1,7 +1,7 @@
 # SoundWeave
 ### The _iMovie_ for all Audio Tracks
 
-- See it in action [here](https://parthskansara.github.io/SoundWeave/)! You can also read a detailed report about the project [here]().
+- See it in action [here](https://parthskansara.github.io/SoundWeave/)! You can also read a detailed report about the project [here](https://github.com/parthskansara/SoundWeave/blob/main/SoundWeave.pdf).
 
 - Want to learn how it works? See **me** in action by clicking the image below.
 
