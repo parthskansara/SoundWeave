@@ -8,6 +8,7 @@ import DeleteTrack from './DeleteTrack';
 import { ToastContext } from '../context/ToastContext';
 import { useFileProcessor } from '../hooks/useFileProcessor';
 import UploadButton from './UploadButton';
+import Track from './Track';
 
 function SongQueue() {
   const { songList, setSongList } = useContext(SongContext);
@@ -28,18 +29,18 @@ function SongQueue() {
     else if (!isNaN(sourceId))
     {
 
-      let targetId = parseInt(event.target.getAttribute('data-id'), 10);
+      // let targetId = parseInt(event.target.getAttribute('data-id'), 10);
       
 
-      if (sourceId < targetId){
-        targetId--;
-      }
-      setSongList((prevSongs) => {
-        let newSongs = [...prevSongs];          
-        const [reorderedSong] = newSongs.splice(sourceId, 1);          
-        newSongs.splice(targetId, 0, reorderedSong);
-        return newSongs;
-      });
+      // if (sourceId < targetId){
+      //   targetId--;
+      // }
+      // setSongList((prevSongs) => {
+      //   let newSongs = [...prevSongs];          
+      //   const [reorderedSong] = newSongs.splice(sourceId, 1);          
+      //   newSongs.splice(targetId, 0, reorderedSong);
+      //   return newSongs;
+      // });
 
     }
   }, [setSongList, processFiles]);
@@ -79,12 +80,14 @@ const handleDeleteDragLeave = (e) => {
 
 const deleteDroppedTrack = (e) => {
   e.preventDefault();
-  const sourceId = parseInt(e.dataTransfer.getData("text/plain"), 10);
+  const sourceId = e.dataTransfer.getData("text/plain");
 
   setSongList((prevSongs) => {
-      const updatedSongs = prevSongs.filter((_, index) => index !== sourceId);
+      const updatedSongs = prevSongs.filter((song) => song.id !== sourceId);
       return updatedSongs;
   });
+
+  console.log(songList);
 
   e.target.style.backgroundColor = '#C7000099';
 };
@@ -115,7 +118,7 @@ const deleteDroppedTrack = (e) => {
             
           
         </div>
-        <div draggable className='h-[40vh] bg-secondary flex flex-row overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
+        <div draggable className='h-[45vh] bg-secondary px-auto flex flex-col pt-2 overflow-x-auto' onDrop={handleDrop} onDragOver={handleDragOver}>
           {
             songList.length === 0 ? (
               <div className='text-header text-lg italic flex justify-center items-center w-full'>
@@ -127,24 +130,9 @@ const deleteDroppedTrack = (e) => {
           
           {songList.map((song, index) => (       
             <React.Fragment key={index}>
-            {index > 0 ? null : (
-              <div 
-                data-id={index} 
-                onDragOver={handleReorderDragOver} 
-                onDragLeave={handleDragLeave}
-                onDrop={handleReorder}
-                className="start-bar min-w-[8px] h-[20%] mt-auto mb-auto mx-[3px] flex bg-slate-500 border-[1px] border-outline justify-center items-center"
-              />
-            )} 
-                
-              <SongCard title={song.name} onDragStart={handleDragStart} id={index}/>
-              <div 
-                data-id={index+1} 
-                onDragOver={handleReorderDragOver} 
-                onDragLeave={handleDragLeave}
-                onDrop={handleReorder}
-                className="end-bar min-w-[8px] h-[20%] mt-auto mb-auto mx-[3px] flex bg-slate-500 border-[1px] border-outline justify-center items-center"
-                />
+              <div className='flex flex-row'>
+                <Track title={song.name} onDragStart={handleDragStart} id={song.id} duration={song.duration} />
+              </div>
             </React.Fragment>
           ))}
         </div>
