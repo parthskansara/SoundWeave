@@ -22,7 +22,7 @@ const SongCard = ({ title, onDragStart, id }) => {
             width: `${trackWidthPercent}%`,
             position: `relative`
         });
-    }, [longestTrackDuration, songLeftPosition, songList]); 
+    }, [trackWidthPercent, longestTrackDuration, songLeftPosition, songList]); 
 
 
     return (

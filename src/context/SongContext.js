@@ -1,4 +1,3 @@
-import { CurrencyRubleRounded } from "@mui/icons-material";
 import Crunker from "crunker";
 import React, { useEffect, useState } from "react";
 

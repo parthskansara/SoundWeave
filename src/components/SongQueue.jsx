@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import SongCard from './SongCard';
 import Toast from './Toast';
 import { useContext } from 'react';
 import { SongContext } from '../context/SongContext';
@@ -17,7 +16,6 @@ function SongQueue() {
 
   const handleDrop = useCallback((event) => {
     event.preventDefault();
-    const sourceId = parseInt(event.dataTransfer.getData("text/plain"), 10);
 
     const files = event.dataTransfer.files;
     
@@ -26,47 +24,19 @@ function SongQueue() {
     { 
       processFiles(files);
     }
-    else if (!isNaN(sourceId))
-    {
 
-      // let targetId = parseInt(event.target.getAttribute('data-id'), 10);
-      
-
-      // if (sourceId < targetId){
-      //   targetId--;
-      // }
-      // setSongList((prevSongs) => {
-      //   let newSongs = [...prevSongs];          
-      //   const [reorderedSong] = newSongs.splice(sourceId, 1);          
-      //   newSongs.splice(targetId, 0, reorderedSong);
-      //   return newSongs;
-      // });
-
-    }
-  }, [setSongList, processFiles]);
+  }, [processFiles]);
 
 
   const handleDragStart = (event, id) => {
     event.dataTransfer.setData("text/plain", id);
   };
 
-  const handleReorderDragOver = (e) => {
-    e.preventDefault(); // Necessary to allow for the drop event to fire.
-    e.target.style.backgroundColor = 'yellow'; // Change the div color when dragged over.
 
-  };
 
   const handleDragOver = (e) => {
     e.preventDefault();
   };
-
-const handleDragLeave = (e) => {
-    e.target.style.backgroundColor = '#64748b'; // Revert the div color when the drag leaves.
-};
-
-const handleReorder = (e) => {
-    e.target.style.backgroundColor = '#64748b'; // Optionally, revert the div color on drop as well.
-};
 
 const handleDeleteDragOver = (e) => {
   e.preventDefault();
@@ -86,8 +56,6 @@ const deleteDroppedTrack = (e) => {
       const updatedSongs = prevSongs.filter((song) => song.id !== sourceId);
       return updatedSongs;
   });
-
-  console.log(songList);
 
   e.target.style.backgroundColor = '#C7000099';
 };

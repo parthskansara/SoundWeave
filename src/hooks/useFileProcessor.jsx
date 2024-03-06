@@ -1,10 +1,10 @@
-import { useContext, useCallback, useState } from 'react';
+import { useContext, useCallback } from 'react';
 import { SongContext } from '../context/SongContext';
 import { ToastContext } from '../context/ToastContext';
 import { v4 as uuidv4 } from 'uuid';
 
 export const useFileProcessor = () => {
-  const { songList, setSongList, longestTrackDuration, setLongestTrackDuration } = useContext(SongContext); 
+  const { setSongList, longestTrackDuration, setLongestTrackDuration } = useContext(SongContext); 
   const { showToast } = useContext(ToastContext);
 
 
@@ -52,7 +52,7 @@ export const useFileProcessor = () => {
     
 
     
-  }, [setSongList, showToast]);
+  }, [setSongList, showToast, longestTrackDuration, setLongestTrackDuration]);
 
   return processFiles;
 };
