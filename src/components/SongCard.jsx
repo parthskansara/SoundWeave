@@ -37,12 +37,12 @@ const SongCard = ({ title, onDragStart, id, draggableRef, totalTrackWidth }) => 
             <div className="flex flex-row h-[100%] items-center ">
                 <div 
                     ref={draggableRef}
-                    className="h-[10vh] flex bg-primary text-sm text-font-dark justify-center items-center font-serif border-0 border-outline rounded-full"
+                    className="h-[10vh] px-4 flex bg-primary text-sm text-font-dark justify-center items-center font-serif border-0 border-outline rounded-full"
                     draggable
                     onDragStart={(e) => onDragStart(e, id)}
                     style={cardStyle}
                 >
-                    {title}     
+                    <span className="overflow-hidden">{title}     </span>
                 </div>
             </div>
             
