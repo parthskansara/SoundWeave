@@ -10,7 +10,8 @@ const [playbackProgress, setPlaybackProgress] = useState({ currentTime: 0, durat
 const [longestTrackDuration, setLongestTrackDuration] = useState(0);
 const [mergedURL, setMergedURL] = useState('');
 const [isPlaying, setIsPlaying] = useState(false);
-console.log("Inside the SongProvider in SongContext");  
+
+// console.log("Inside the SongProvider in SongContext");  
 
 
 const updateSongById = (id, updates) => {
@@ -23,7 +24,7 @@ const updateSongById = (id, updates) => {
 };
 
 useEffect(() => {
-    console.log("Inside SongContext, songList updated")
+    // console.log("Inside SongContext, songList updated")
     if (songList.length > 0) {
         const crunker = new Crunker();
 

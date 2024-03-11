@@ -7,6 +7,12 @@ export const useFileProcessor = () => {
   const { setSongList, longestTrackDuration, setLongestTrackDuration } = useContext(SongContext); 
   const { showToast } = useContext(ToastContext);
 
+  async function getFileAudioBuffer(file) {
+    const audioContext = new AudioContext();
+    const arrayBuffer = await file.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);  
+    return [audioBuffer, audioBuffer.duration];
+  }
 
   const processFiles = useCallback((files) => {
     
@@ -18,23 +24,20 @@ export const useFileProcessor = () => {
       return true;
     });
 
-    const filePromises = audioFiles.map(file => {
-      return new Promise((resolve) => {
-        const url = URL.createObjectURL(file);
-        const audio = new Audio(url);
-        audio.addEventListener('loadedmetadata', () => {
-          
-          resolve({
-            id: uuidv4(),
-            url,
-            name: file.name.split(".")[0],
-            duration: audio.duration,
-            startTime: 0,
-            width: '100',
-            leftPosition: '0'
-          });
-        }, { once: true });
-      });
+    const filePromises = audioFiles.map(async file => {
+      const url = URL.createObjectURL(file);
+      const [songBuffer, songDuration] = await getFileAudioBuffer(file);
+
+      return {
+        id: uuidv4(),
+        url,
+        name: file.name.split(".")[0],
+        duration: songDuration,
+        startTime: 0,
+        width: '100',
+        leftPosition: '0',
+        buffer: songBuffer
+      };
     });
     
     Promise.all(filePromises).then(newSongs => {
