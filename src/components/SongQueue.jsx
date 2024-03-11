@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Toast from './Toast';
 import { useContext } from 'react';
 import { SongContext } from '../context/SongContext';
@@ -20,7 +20,7 @@ function SongQueue() {
     const files = event.dataTransfer.files;
     
 
-    if (files.length > 0)
+    if (files.length)
     { 
       processFiles(files);
     }
@@ -50,6 +50,7 @@ const handleDeleteDragLeave = (e) => {
 
 const deleteDroppedTrack = (e) => {
   e.preventDefault();
+  console.log("Deleting Track");
   const sourceId = e.dataTransfer.getData("text/plain");
 
   setSongList((prevSongs) => {
@@ -57,8 +58,15 @@ const deleteDroppedTrack = (e) => {
       return updatedSongs;
   });
 
+  
   e.target.style.backgroundColor = '#C7000099';
 };
+
+useEffect(() => {
+  if (!songList){
+
+  }
+}, [songList]);
 
 
 

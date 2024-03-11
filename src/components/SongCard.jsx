@@ -1,35 +1,43 @@
 import { useContext, useEffect, useState } from "react";
 import { SongContext } from "../context/SongContext";
 
-const SongCard = ({ title, onDragStart, id }) => {
+const SongCard = ({ title, onDragStart, id, draggableRef, totalTrackWidth }) => {
 
-    const { longestTrackDuration, songList } = useContext(SongContext);
+    const { longestTrackDuration, songList, updateSongById } = useContext(SongContext);
     const [cardStyle, setCardStyle] = useState({width: "100%", left: "0%", position: "relative"});
     
     const song = songList.find((song) => song.id === id);
-    const songLeftPosition = song ? song.leftPosition : "0";
-    const duration = song ? song.duration : "1";
+    let songLeftPosition = parseInt(song.leftPosition || "0", 10);
+    let songStartTime = song.startTime;
+    const duration = song ? song.duration: "1"; 
     
-    // Decide width
     const safeLongestDuration = Math.max(longestTrackDuration || 0, 1);
-    const trackWidthPercent = (duration / safeLongestDuration) * 100;
-    
-
+    let trackWidthPercent = (duration / safeLongestDuration)* 100;
+  
 
     useEffect(() => {
+        if (song.duration >= longestTrackDuration)
+        {
+            songLeftPosition = 0;
+            songStartTime = 0;
+            trackWidthPercent = trackWidthPercent*(1 - songLeftPosition/100);
+        }
         setCardStyle({            
             left: `${songLeftPosition}%`,
             width: `${trackWidthPercent}%`,
             position: `relative`
         });
-    }, [trackWidthPercent, longestTrackDuration, songLeftPosition, songList]); 
+        updateSongById(id, { leftPosition: songLeftPosition, startTime: songStartTime, width: trackWidthPercent});
+    }, [trackWidthPercent, longestTrackDuration, songLeftPosition]); 
+
 
 
     return (
         <> 
             <div className="flex flex-row h-[100%] items-center ">
                 <div 
-                    className="cursor-move h-[10vh] flex bg-primary text-sm text-font-dark justify-center items-center font-serif border-0 border-outline rounded-full cursor-grab"
+                    ref={draggableRef}
+                    className="h-[10vh] flex bg-primary text-sm text-font-dark justify-center items-center font-serif border-0 border-outline rounded-full"
                     draggable
                     onDragStart={(e) => onDragStart(e, id)}
                     style={cardStyle}

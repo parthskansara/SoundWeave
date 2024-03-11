@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/SoundWeave/static/css/main.99e947e1.css",
-    "main.js": "/SoundWeave/static/js/main.fc2a6c84.js",
+    "main.js": "/SoundWeave/static/js/main.ef8546ac.js",
     "static/js/453.3c2ad64e.chunk.js": "/SoundWeave/static/js/453.3c2ad64e.chunk.js",
     "index.html": "/SoundWeave/index.html",
     "main.99e947e1.css.map": "/SoundWeave/static/css/main.99e947e1.css.map",
-    "main.fc2a6c84.js.map": "/SoundWeave/static/js/main.fc2a6c84.js.map",
+    "main.ef8546ac.js.map": "/SoundWeave/static/js/main.ef8546ac.js.map",
     "453.3c2ad64e.chunk.js.map": "/SoundWeave/static/js/453.3c2ad64e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.99e947e1.css",
-    "static/js/main.fc2a6c84.js"
+    "static/js/main.ef8546ac.js"
   ]
 }
