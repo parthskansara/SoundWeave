@@ -24,26 +24,21 @@ const updateSongById = (id, updates) => {
 };
 
 useEffect(() => {
-    // console.log("Inside SongContext, songList updated")
     if (songList.length > 0) {
         const crunker = new Crunker();
+    
+    const paddedBuffersPromises = songList.map(song => {
+        return crunker.padAudio(song.buffer, 0, song.startTime);
+    });
 
-        crunker.fetchAudio(...songList.map(song => song.url))
-        .then(buffers => {
-            const paddedBuffersPromises = buffers.map((buffer, index) => {
-            const startTime = songList[index].startTime;
-            return crunker.padAudio(buffer, 0, startTime); 
-        });
-
-            return Promise.all(paddedBuffersPromises);
-        })
-        .then(paddedBuffers => crunker.mergeAudio(paddedBuffers))
-        .then(merged => crunker.export(merged, 'audio/mp3'))
-        .then(output => {
-            setMergedURL(output.url);
-            setDownloadURL(output.blob);         
-        })
-        .catch(error => console.error(error));
+    Promise.all(paddedBuffersPromises)
+    .then(paddedBuffers => crunker.mergeAudio(paddedBuffers))
+    .then(merged => crunker.export(merged, 'audio/mp3'))
+    .then(output => {
+        setMergedURL(output.url); 
+        setDownloadURL(output.blob);
+    })
+    .catch(error => console.error(error));
 
         const maxDuration = songList.reduce((max, song) => Math.max(max, song.duration), 0);
         setLongestTrackDuration(maxDuration);

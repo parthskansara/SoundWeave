@@ -50,7 +50,7 @@ const handleDeleteDragLeave = (e) => {
 
 const deleteDroppedTrack = (e) => {
   e.preventDefault();
-  console.log("Deleting Track");
+  // console.log("Deleting Track");
   const sourceId = e.dataTransfer.getData("text/plain");
 
   setSongList((prevSongs) => {
@@ -77,8 +77,11 @@ useEffect(() => {
       {toast.show && 
         <Toast message={toast.message} />
       }
+      
      
       <div className='text-center flex flex-col border-4 border-outline mx-[40px] mt-[10px] relative'>
+       
+        
         <div className='flex flex-row items-center justify-center text-font-light font-bold text-[25px] bg-header pb-4 pt-2'>
             
               <div></div>
@@ -121,6 +124,7 @@ useEffect(() => {
         
       </div>
       </div>
+      
     </>
   );
 }

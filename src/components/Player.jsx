@@ -21,9 +21,14 @@ const Player = () => {
                 audioElement.pause();
             }
             else{
+
+                audioElement.src = mergedURL;
                 audioElement.preload = "none";
                 audioElement.currentTime = lastPlaybackPosition;
-                audioElement.play();
+                audioElement.addEventListener('canplay', () => {
+                    audioElement.play();
+                });
+                
             }              
         }
         
@@ -53,7 +58,6 @@ const Player = () => {
         ref={audioPlayerRef}        
         autoPlay={false}
         onListen={handleListen}
-        src={mergedURL}
         progressUpdateInterval={1}
     />
     </div>
