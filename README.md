@@ -1,5 +1,5 @@
 # SoundWeave
-### The _iMovie_ for all Audio Tracks
+## The _iMovie_ for all Audio Tracks
 
 ### Introduction
 
